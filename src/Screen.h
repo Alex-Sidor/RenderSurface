@@ -5,17 +5,23 @@
 
 #include <cstdint>
 
+struct pixel {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+};
+
 class Screen {
 public:
     Screen(int x, int y, const char* name);
     ~Screen();
-    void updateScreen();
-    void setTexture(const uint32_t* buffer);
-    bool shouldClose();
+    const void updateScreen();
+    const void setTexture(const pixel* buffer);
+    const bool shouldClose();
 
+    GLFWwindow* window = nullptr;
 private:
     int width, height;
-    GLFWwindow* window = nullptr;
     unsigned int texture = 0;
     unsigned int vao = 0, vbo = 0;
     unsigned int shaderProgram = 0;
