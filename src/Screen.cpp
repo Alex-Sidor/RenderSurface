@@ -53,7 +53,7 @@ Screen::Screen(int x, int y, const char* name) : width(x), height(y) {
     glViewport(0, 0, width, height);
     glClearColor(0.f, 0.f, 0.f, 1.f);
 
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
