@@ -115,6 +115,10 @@ Screen::Screen(int x, int y, const char* name) : width(x), height(y) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+
+
+    //input handling
+    inputHandler = new Input(window);
 }
 
 Screen::~Screen() {
@@ -125,6 +129,10 @@ Screen::~Screen() {
     if (window) {
         glfwDestroyWindow(window);
         glfwTerminate();
+    }
+
+    if (inputHandler) {
+        delete inputHandler;
     }
 }
 

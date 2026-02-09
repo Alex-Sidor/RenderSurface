@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <Input.h>
 
 #include <cstdint>
 
@@ -20,6 +21,8 @@ public:
     const bool shouldClose();
 
     GLFWwindow* window = nullptr;
+
+    Input* inputHandler = nullptr;
 private:
     int width, height;
     unsigned int texture = 0;
