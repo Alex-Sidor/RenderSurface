@@ -26,7 +26,7 @@ void main()
 }
 )glsl";
 
-const bool Screen::shouldClose() {
+bool Screen::shouldClose() {
     return glfwWindowShouldClose(window);
 }
 
@@ -136,7 +136,7 @@ Screen::~Screen() {
     }
 }
 
-const void Screen::updateScreen() {
+void Screen::updateScreen() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shaderProgram);
@@ -150,7 +150,7 @@ const void Screen::updateScreen() {
     glfwPollEvents();
 }
 
-const void Screen::setTexture(const pixel* buffer) {
+void Screen::setTexture(const pixel* buffer) {
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 }

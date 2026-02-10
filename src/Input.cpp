@@ -2,23 +2,22 @@
 
 std::vector<int> Input::inputBuffer;
 
-glm::vec2 Input::lastMousePosition;
-glm::vec2 Input::mouseDelta;
+MPos Input::lastMousePosition;
+MPos Input::mouseDelta;
 
-Input::Input(Screen& screen){
+Input::Input(GLFWwindow* window){
     
-    glfwSetInputMode(screen.window, GLFW_REPEAT, GLFW_FALSE);
+    glfwSetInputMode(window, GLFW_REPEAT, GLFW_FALSE);
     
-    glfwSetKeyCallback(screen.window, key_callback);
-    glfwSetCursorPosCallback(screen.window, cursor_position_callback);
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
 
-    lastMousePosition = screen.screenSize()/2.0f;
-    mouseDelta = glm::vec2(0,0);
+    mouseDelta = {0,0};
 
-    glfwSetInputMode(screen.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);  
 }
 
-glm::vec2 Input::frameMouseDelta(){
+MPos Input::frameMouseDelta(){
     return mouseDelta;
 }
 
@@ -39,13 +38,17 @@ void Input::key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void Input::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    glm::vec2 current = glm::vec2(xpos,ypos);
-    mouseDelta = (current - lastMousePosition);
+    MPos current = {xpos,ypos};
+    mouseDelta = {
+        current.x - lastMousePosition.x,
+        current.y - lastMousePosition.y
+    };
+
     lastMousePosition = current;
 }
 
 void Input::pollInputs(){
-    mouseDelta = glm::vec2(0.0f,0.0f);
+    mouseDelta = {0,0};
     glfwPollEvents();
 }
 

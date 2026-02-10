@@ -1,16 +1,24 @@
 #pragma once
 
-#include "Screen.h"
+#include "vector"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include <algorithm> 
+#include <iostream>
+
+struct MPos {
+    float x, y;
+};
 
 class Input{
 public:
     static std::vector<int> inputBuffer;
 
-    Input(Screen& screen);
+    Input(GLFWwindow* window);
 
-    glm::vec2 frameMouseDelta();
+    MPos frameMouseDelta();
 
     void pollInputs();
     void printVector();
@@ -18,9 +26,9 @@ public:
     bool keyPressed(int charCode);
 
 private:
-    static glm::vec2 mouseDelta;
+    static MPos mouseDelta;
 
-    static glm::vec2 lastMousePosition;
+    static MPos lastMousePosition;
 
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
