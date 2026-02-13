@@ -147,7 +147,7 @@ void Screen::updateScreen() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glfwSwapBuffers(window);
-    glfwPollEvents();
+    inputHandler->pollInputs();
 }
 
 void Screen::setTexture(const pixel* buffer) {
