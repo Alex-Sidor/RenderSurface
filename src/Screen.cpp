@@ -53,7 +53,7 @@ Screen::Screen(int x, int y, const char* name) : width(x), height(y) {
     glViewport(0, 0, width, height);
     glClearColor(0.f, 0.f, 0.f, 1.f);
 
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
@@ -115,6 +115,10 @@ Screen::Screen(int x, int y, const char* name) : width(x), height(y) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+
+
+    //input handling
+    inputHandler = new Input(window);
 }
 
 Screen::~Screen() {
@@ -125,6 +129,10 @@ Screen::~Screen() {
     if (window) {
         glfwDestroyWindow(window);
         glfwTerminate();
+    }
+
+    if (inputHandler) {
+        delete inputHandler;
     }
 }
 
@@ -139,10 +147,10 @@ void Screen::updateScreen() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glfwSwapBuffers(window);
-    glfwPollEvents();
+    inputHandler->pollInputs();
 }
 
-void Screen::setTexture(const uint32_t* buffer) {
+void Screen::setTexture(const pixel* buffer) {
     glBindTexture(GL_TEXTURE_2D, texture);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 }
