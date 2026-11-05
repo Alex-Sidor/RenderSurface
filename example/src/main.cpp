@@ -7,8 +7,8 @@ int main(){
 
     Screen mainScreen(width,height, "my new screen"); //init screen
 
-    const uint32_t nPixels = width * height;
-    uint32_t buffer[nPixels];
+    const int nPixels = width * height;
+    pixel buffer[nPixels];
 
     const int rad = 100;
     const int radSqr = rad * rad;
@@ -27,10 +27,10 @@ int main(){
             int dist = (dx * dx) + (dy * dy);
 
             if (dist < radSqr) {
-                buffer[index] = 0xFFFFFFFF;
+                buffer[index] = { 255,0,0 };
             }
             else {
-                buffer[index] = 0xFF000000;
+                buffer[index] = {0, 0, 255};
             }
 
             index += 1;

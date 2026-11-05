@@ -38,7 +38,7 @@ void Input::key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void Input::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    MPos current = {xpos,ypos};
+    MPos current = {(float)xpos,(float)ypos};
     mouseDelta = {
         current.x - lastMousePosition.x,
         current.y - lastMousePosition.y
