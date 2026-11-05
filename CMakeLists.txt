@@ -5,12 +5,13 @@ add_library(glad STATIC deps/glad/src/glad.c)
 target_include_directories(glad PUBLIC deps/glad/include)
 
 add_subdirectory(deps/glfw)
-
 find_package(OpenGL REQUIRED)
 
 file(GLOB SOURCES "src/*.cpp")
 add_library(RenderSurface STATIC ${SOURCES})
-
 target_include_directories(RenderSurface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
 target_link_libraries(RenderSurface PUBLIC glad glfw OpenGL::GL)
+
+if(PROJECT_IS_TOP_LEVEL)
+    add_subdirectory(Example)
+endif()
